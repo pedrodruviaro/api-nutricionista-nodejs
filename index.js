@@ -12,6 +12,7 @@ server.use(express.json());
 
 // routes
 server.use("/api/auth", require("./controllers/authController"));
+server.use("/api/pacient", require("./controllers/pacientController"));
 
 mongoose
     .connect(MONGO_URI)
