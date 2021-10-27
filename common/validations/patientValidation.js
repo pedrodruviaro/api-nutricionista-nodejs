@@ -1,7 +1,7 @@
 const Joi = require("joi");
 
-class PacientValidation {
-    newPacient(data) {
+class PatientValidation {
+    newPatient(data) {
         const schema = Joi.object({
             name: Joi.string().min(6).max(100).required(),
             weight: Joi.number().max(500).required(),
@@ -14,4 +14,4 @@ class PacientValidation {
     }
 }
 
-module.exports = new PacientValidation();
+module.exports = new PatientValidation();

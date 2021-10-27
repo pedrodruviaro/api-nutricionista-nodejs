@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const PacientSchema = new mongoose.Schema(
+const PatientSchema = new mongoose.Schema(
     {
         nutriId: {
             type: String,
@@ -53,4 +53,4 @@ const PacientSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-module.exports = mongoose.model("pacients", PacientSchema);
+module.exports = mongoose.model("Patients", PatientSchema);
