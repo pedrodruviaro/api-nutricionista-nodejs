@@ -73,4 +73,23 @@ router.get("/all/:nutriId", verifyToken, async (req, res) => {
     }
 });
 
+/*
+    --- DELETE A PATIENT ---
+        /api/pacient/delete/:id
+*/
+router.delete("/delete/:id", verifyToken, async (req, res) => {
+    const patientId = req.params.id;
+    const nutriId = req.user.id;
+
+    try {
+        await Pacient.findOneAndRemove({
+            $and: [{ _id: patientId }, { nutriId: nutriId }],
+        });
+
+        return res.status(200).json("Pacient removed");
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+});
+
 module.exports = router;
