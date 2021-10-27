@@ -2,7 +2,7 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Nutri = require("../models/Nutri");
-const AuthValidation = require("../common/validations");
+const AuthValidation = require("../common/validations/authValidation");
 
 /*
     --- REGISTER NEW NUTRI ---

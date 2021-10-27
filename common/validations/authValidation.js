@@ -1,5 +1,6 @@
 const Joi = require("joi");
 
+// --- AUTH VALIDATIONS ---
 class AuthValidation {
     register(data) {
         const schema = Joi.object({
