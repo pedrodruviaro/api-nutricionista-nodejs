@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Nutri = require("../models/Nutri");
 const AuthValidation = require("../common/validations/authValidation");
+const verifyToken = require("../common/verifyToken");
 
 /*
     --- REGISTER NEW NUTRI ---
@@ -69,6 +70,37 @@ router.post("/login", async (req, res) => {
 
         const { password, ...rest } = nutri._doc;
         return res.status(200).json({ ...rest, token });
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+});
+
+/*
+    --- EDITING NUTRI ---
+        /api/auth/edit/:id
+*/
+router.put("/edit/:id", verifyToken, async (req, res) => {
+    const paramsNutriId = req.params.id;
+    const authNutriId = req.user.id;
+
+    // checking if are the same
+    if (paramsNutriId != authNutriId) {
+        return res.status(401).json({ error: "unauthorized" });
+    }
+
+    if (req.body.password) {
+        return res.status(400).json({ error: "Cannot update password here" });
+    }
+
+    try {
+        const update = req.body;
+        const updatedNutri = await Nutri.findOneAndUpdate(
+            { _id: authNutriId },
+            update,
+            { new: true }
+        );
+
+        return res.status(200).json(updatedNutri);
     } catch (error) {
         return res.status(500).json(error);
     }
